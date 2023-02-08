@@ -1,0 +1,123 @@
+#player2::part(control-panel) {
+    background: #ffffff;
+    border: 2px solid #000;
+    border-radius: 10px;
+    width: 800px;
+}
+
+#pianoRollVisualizer {
+    background: #ffffff;
+    border: 2px solid #000;
+    border-radius: 10px;
+}
+
+svg rect.note.active {
+    fill: rgb(1, 255, 1);
+    stroke: black;
+    stroke-width: 1.5;
+    stroke-opacity: 0.5;
+}
+canvas rect.note.active {
+    fill: rgb(1, 255, 1);
+    stroke: black;
+    stroke-width: 6.5;
+    stroke-opacity: 0.5;
+}
+midi-player {
+    display: block;
+    width: inherit;
+    margin: 4px;
+    margin-bottom: 0;
+}
+midi-player::part(control-panel) {
+    background: #ff5;
+    border: 2px solid #000;
+    border-radius: 10px 10px 0 0;
+}
+midi-player::part(play-button) {
+    color: #353;
+    border: 2px solid currentColor;
+    background-color: #4d4;
+    border-radius: 20px;
+    transition: all 0.2s;
+    content: 'hello';
+}
+midi-player::part(play-button):hover {
+    color: #0a0;
+    background-color: #5f5;
+    border-radius: 10px;
+}
+midi-player::part(time) {
+    font-family: monospace;
+}
+
+/* Custom visualizer style */
+midi-visualizer .piano-roll-visualizer {
+    background: #ffd;
+    border: 2px solid black;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    margin: 4px;
+    margin-top: 0;
+    overflow: auto;
+}
+waterfall-notes-container {
+    height: 600px;
+}
+
+#waterfallVisualizer{
+    background: #ffd;
+    border: 2px solid black;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    margin: 4px;
+    margin-top: 0;
+    overflow: auto;
+}
+midi-visualizer svg rect.note{
+    stroke: black;
+}
+midi-visualizer svg rect.white[data-pitch="20"] {
+    fill: yellow;
+}
+midi-visualizer svg rect.note[data-pitch="55"] {
+    fill: red;
+}
+midi-visualizer svg rect.note[data-pitch="57"] {
+    fill: blue;
+}
+midi-visualizer svg rect.note[data-pitch="59"] {
+    fill: orange;
+}
+midi-visualizer svg rect.note[data-pitch="60"] {
+    fill: green;
+}
+midi-visualizer svg rect.note[data-pitch="62"] {
+    fill: purple;
+}
+midi-visualizer svg rect.note[data-pitch="64"] {
+    fill: saddlebrown;
+}
+midi-visualizer svg rect.note[data-pitch="65"] {
+    fill: yellow;
+}
+midi-visualizer svg rect.note[data-pitch="67"] {
+    fill: red;
+}
+midi-visualizer svg rect.note[data-pitch="69"] {
+    fill: blue;
+}
+midi-visualizer svg rect.note[data-pitch="71"] {
+    fill: orange;
+}
+midi-visualizer svg rect.note[data-pitch="72"] {
+    fill: green;
+}
+midi-visualizer svg rect.note[data-is-drum="true"]{
+    fill: #888;
+    stroke: #888;
+}
+midi-visualizer svg rect.note.active {
+    opacity: 0.9;
+    stroke: #000;
+}
