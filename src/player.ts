@@ -12,6 +12,16 @@ const DEFAULT_SOUNDFONT = 'https://storage.googleapis.com/magentadata/js/soundfo
 
 let playingPlayer: PlayerElement = null;
 
+/*import { readFileSync } from 'fs'
+//import { readFile } from 'fs/promises'
+//import { outputFile, outputFileSync } from 'fs-extra/esm'
+
+const data = readFileSync('./modules/jazz.mid',
+    {encoding:'utf8', flag:'r'});
+
+// Display the file data
+console.log(data);
+*/
 
 /**
  * MIDI player element.
@@ -58,6 +68,7 @@ export class PlayerElement extends HTMLElement {
   protected controlPanel: HTMLElement;
   protected playButton: HTMLButtonElement;
   protected seekBar: HTMLInputElement;
+  protected tempoInput: HTMLInputElement;
   protected currentTimeLabel: HTMLInputElement;
   protected totalTimeLabel: HTMLInputElement;
   protected visualizerListeners = new Map<VisualizerElement, {[name: string]: EventListener}>();
@@ -79,6 +90,96 @@ export class PlayerElement extends HTMLElement {
     this.currentTimeLabel = this.controlPanel.querySelector('.current-time');
     this.totalTimeLabel = this.controlPanel.querySelector('.total-time');
     this.seekBar = this.controlPanel.querySelector('.seek-bar');
+    var midifilesArray = ["midifiles/Alle-fugler.mid", "midifiles/twinkle_twinkle.mid", "midifiles/Bae-bae-lille-lam.mid","midifiles/Hurra-for-deg.mid"];
+
+    const select = document.createElement("select");
+    const optGroupElement = document.createElement("optgroup");
+    select.appendChild(optGroupElement);
+    this.tempoInput = document.createElement('input');
+    const tempoLabel = document.createElement('label');
+    tempoLabel.innerText = "MIDI file not selected..";
+    select.name = "midifilesSelect";
+    select.id = "midifilesSelect"
+    var option = document.createElement("option");
+    option.value = "";
+    option.text = "";
+    optGroupElement.appendChild(option);
+
+    //tempoLabel.innerText = "Reading files...";
+
+    for (const val of midifilesArray)
+    {
+      option = document.createElement("option");
+      option.value = val;
+      option.text = val.charAt(0).toUpperCase() + val.slice(1);
+      optGroupElement.appendChild(option);
+    }
+    select.addEventListener('change', () => {
+      this.ns = null;
+      tempoLabel.innerText = "MIDI file: " + select.value;
+      this.setOrRemoveAttribute('src', select.value);  // Triggers initPlayer only if src was present.
+      this.initPlayer();
+      this.start();
+      // Force reload visualizers to prevent stuttering at playback start
+      for (const visualizer of this.visualizerListeners.keys()) {
+        if (visualizer.noteSequence != this.ns) {
+          visualizer.noteSequence = this.ns;
+          visualizer.reload();
+        }
+      }
+      this.tempoInput.setAttribute("value", "100");
+    });
+
+    const inputfield = document.createElement('input');
+    inputfield.type = "text";
+    inputfield.setAttribute("id", "midifileInput");
+    inputfield.setAttribute("name", "midifileInput");
+    inputfield.setAttribute("placeholder",this.src);
+    const inputbutton = document.createElement('button');
+    this.tempoInput.setAttribute("type", "range");
+    inputbutton.innerHTML = "Upload";
+    inputbutton.setAttribute("name", "midifileBtn");
+    inputbutton.addEventListener('click', () => {
+      this.ns = null;
+      this.setOrRemoveAttribute('src', inputfield.value);  // Triggers initPlayer only if src was present.
+      this.initPlayer();
+      this.start();
+      // Force reload visualizers to prevent stuttering at playback start
+      for (const visualizer of this.visualizerListeners.keys()) {
+        if (visualizer.noteSequence != this.ns) {
+          visualizer.noteSequence = this.ns;
+          visualizer.reload();
+        }
+      }
+      this.tempoInput.setAttribute("value", this.ns.tempos[0].qpm.toString());
+      //this.tempoInput.setAttribute("value", "100");
+    });
+    //this.tempoInput.setAttribute("value", this.ns.tempos[0].qpm.toString());
+    this.tempoInput.setAttribute("value", "100");
+    this.tempoInput.setAttribute("min", "20");
+    this.tempoInput.setAttribute("max", "240");
+    this.tempoInput.setAttribute("step", "1");
+    //tempoLabel.innerText = "Tempo: " + this.tempoInput.value + ", and total time: " + this.ns.totalTime;
+    this.tempoInput.addEventListener('input',  () => {
+      this.player.setTempo(parseInt(this.tempoInput.value, 10));
+      var time = this.ns.totalTime;
+      time = Math.ceil(time * (this.ns.tempos[0].qpm/parseInt(this.tempoInput.value)));
+      this.ns.totalTime = time;
+      this.ns.tempos[0].qpm = parseInt(this.tempoInput.value);
+      this.seekBar.max = String(this.ns.totalTime);
+      this.totalTimeLabel.textContent = utils.formatTime(this.ns.totalTime);
+      //this.ns.totalTime = this.ns.totalTime * 120/parseInt(this.tempoInput.value);
+      tempoLabel.innerText = "Tempo: " + this.tempoInput.value + ", and total time: " + utils.formatTime(this.ns.totalTime) + " and tempo : " + this.ns.tempos[0].qpm;
+      for (const visualizer of this.visualizerListeners.keys()) {
+          visualizer.noteSequence = this.ns;
+          visualizer.reload();
+      }
+    });
+    this.shadowRoot.appendChild(select);
+    this.shadowRoot.appendChild(inputfield);
+    this.shadowRoot.appendChild(inputbutton);
+    this.shadowRoot.appendChild(this.tempoInput);
+    this.shadowRoot.appendChild(tempoLabel);
   }
 
   connectedCallback() {
@@ -97,6 +198,7 @@ export class PlayerElement extends HTMLElement {
       if (this.player.isPlaying()) {
         this.stop();
       } else {
+        this.player.setTempo(parseInt(this.tempoInput.value, 10));
         this.start();
       }
     });
@@ -172,6 +274,7 @@ export class PlayerElement extends HTMLElement {
       ns = this.ns;
 
       if (ns) {
+        this.tempoInput.value = ns.tempos[0].qpm.toString()
         this.seekBar.max = String(ns.totalTime);
         this.totalTimeLabel.textContent = utils.formatTime(ns.totalTime);
       } else {
@@ -243,6 +346,7 @@ export class PlayerElement extends HTMLElement {
               if (visualizer.noteSequence != this.ns) {
                 visualizer.noteSequence = this.ns;
                 visualizer.reload();
+                this.tempoInput.value = this.ns.tempos[0].qpm.toString();
               }
             }
 
