@@ -59,6 +59,7 @@ export class VisualizerElement extends HTMLElement {
   protected ns: INoteSequence = null;
   protected _config: mm.VisualizerConfig = {};
   protected _configStaff: mm.StaffSVGVisualizerConfig = {};
+  protected _configWater: mm.WaterfallVisualizerConfig = {};
   protected height: number;
   protected width: number;
 
@@ -158,15 +159,23 @@ export class VisualizerElement extends HTMLElement {
       }
       if(this.type === 'staff'){
         this._configStaff = {
-          noteHeight: 30,
+          noteHeight: 15,
           activeNoteRGB: rgb,
           scrollType: 1
         };
         this._config = this._configStaff;
+      } else if(this.type === 'waterfall'){
+        this._configWater = {
+          activeNoteRGB: rgb,
+          whiteNoteHeight: 100,
+          whiteNoteWidth: 35,
+          pixelsPerTimeStep: 40
+        };
+        this._config = this._configWater;
       } else {
         this._config = {
-          noteHeight: 20,
-          activeNoteRGB: rgb,
+          noteHeight: 50,
+          activeNoteRGB: rgb
         };
       }
 

@@ -1,0 +1,16 @@
+{
+  "english": {
+    "andTotalTime": " and total time: ",
+    "andTempo": " and tempo:",
+    "midifileNotSelected": "MIDI file not selected...",
+    "midifilePresent": "MIDI file: ",
+    "upload": "Upload"
+  },
+  "norsk":{
+    "andTotalTime": " og total tid: ",
+    "andTempo": " og tempo:",
+    "midifileNotSelected": "MIDI-fil ikke valgt...",
+    "midifilePresent": "MIDI-fil: ",
+    "upload": "Last opp"
+  }
+}

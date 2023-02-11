@@ -12,7 +12,9 @@
     "skipLibCheck": true,
     "target": "esnext",
     "module": "es6",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*"

@@ -5,23 +5,27 @@ import {controlsTemplate} from './assets';
 import * as utils from './utils';
 import {VisualizerElement} from './visualizer';
 
+import language from './language.json'; // This import style requires "esModuleInterop", see "side notes"
+
+var text = language.norsk;
 
 export type NoteEvent = CustomEvent<{note: NoteSequence.INote}>;
 const VISUALIZER_EVENTS = ['start', 'stop', 'note'] as const;
 const DEFAULT_SOUNDFONT = 'https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus';
 
+const MIDI_DIRECTORY = "midifiles/";
+
 let playingPlayer: PlayerElement = null;
 
-/*import { readFileSync } from 'fs'
+//var fs = require('fs');
 //import { readFile } from 'fs/promises'
 //import { outputFile, outputFileSync } from 'fs-extra/esm'
 
-const data = readFileSync('./modules/jazz.mid',
-    {encoding:'utf8', flag:'r'});
+//fs.readFileSync('/midifiles/jazz.mid');
 
 // Display the file data
-console.log(data);
-*/
+//alert(data);
+
 
 /**
  * MIDI player element.
@@ -90,14 +94,14 @@ export class PlayerElement extends HTMLElement {
     this.currentTimeLabel = this.controlPanel.querySelector('.current-time');
     this.totalTimeLabel = this.controlPanel.querySelector('.total-time');
     this.seekBar = this.controlPanel.querySelector('.seek-bar');
-    var midifilesArray = ["midifiles/Alle-fugler.mid", "midifiles/twinkle_twinkle.mid", "midifiles/Bae-bae-lille-lam.mid","midifiles/Hurra-for-deg.mid"];
+    var midifilesArray = ["Alle-fugler.mid", "Bae-bae-lille-lam.mid", "Bjørnen-sover.mid", "Hjulene-på-bussen.mid", "Hurra-for-deg.mid", "twinkle_twinkle.mid"];
 
     const select = document.createElement("select");
     const optGroupElement = document.createElement("optgroup");
     select.appendChild(optGroupElement);
     this.tempoInput = document.createElement('input');
     const tempoLabel = document.createElement('label');
-    tempoLabel.innerText = "MIDI file not selected..";
+    tempoLabel.innerText = text.midifileNotSelected;
     select.name = "midifilesSelect";
     select.id = "midifilesSelect"
     var option = document.createElement("option");
@@ -116,8 +120,9 @@ export class PlayerElement extends HTMLElement {
     }
     select.addEventListener('change', () => {
       this.ns = null;
-      tempoLabel.innerText = "MIDI file: " + select.value;
-      this.setOrRemoveAttribute('src', select.value);  // Triggers initPlayer only if src was present.
+      var currentFile = select.value
+      tempoLabel.innerText = text.midifilePresent + currentFile;
+      this.setOrRemoveAttribute('src', MIDI_DIRECTORY + select.value);  // Triggers initPlayer only if src was present.
       this.initPlayer();
       this.start();
       // Force reload visualizers to prevent stuttering at playback start
@@ -137,7 +142,7 @@ export class PlayerElement extends HTMLElement {
     inputfield.setAttribute("placeholder",this.src);
     const inputbutton = document.createElement('button');
     this.tempoInput.setAttribute("type", "range");
-    inputbutton.innerHTML = "Upload";
+    inputbutton.innerHTML = text.upload;
     inputbutton.setAttribute("name", "midifileBtn");
     inputbutton.addEventListener('click', () => {
       this.ns = null;
@@ -169,7 +174,7 @@ export class PlayerElement extends HTMLElement {
       this.seekBar.max = String(this.ns.totalTime);
       this.totalTimeLabel.textContent = utils.formatTime(this.ns.totalTime);
       //this.ns.totalTime = this.ns.totalTime * 120/parseInt(this.tempoInput.value);
-      tempoLabel.innerText = "Tempo: " + this.tempoInput.value + ", and total time: " + utils.formatTime(this.ns.totalTime) + " and tempo : " + this.ns.tempos[0].qpm;
+      tempoLabel.innerText = "Tempo: " + this.tempoInput.value + text.andTotalTime + utils.formatTime(this.ns.totalTime) + text.andTempo + this.ns.tempos[0].qpm;
       for (const visualizer of this.visualizerListeners.keys()) {
           visualizer.noteSequence = this.ns;
           visualizer.reload();
