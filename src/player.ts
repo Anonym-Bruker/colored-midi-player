@@ -94,7 +94,7 @@ export class PlayerElement extends HTMLElement {
     this.currentTimeLabel = this.controlPanel.querySelector('.current-time');
     this.totalTimeLabel = this.controlPanel.querySelector('.total-time');
     this.seekBar = this.controlPanel.querySelector('.seek-bar');
-    var midifilesArray = ["Alle-fugler.mid", "Bjørnen-sover.mid", "Blinke-blinke-stjernelill.mid", "Bæ-bæ-lille-lam.mid", "Fader-Jakob.mid", "Hjulene-på-bussen.mid", "Hurra-for-deg.mid", "Lisa-gikk-til-skolen.mid", "Mikkel-rev.mid"];
+    var midifilesArray = ["Alle-fugler.mid", "Bjørnen-sover.mid", "Blinke-blinke-stjernelill.mid", "Bæ-bæ-lille-lam.mid", "Fader-Jakob.mid", "Hjulene-på-bussen.mid", "Hurra-for-deg.mid", "Lisa-gikk-til-skolen.mid", "Mikkel-rev.mid", "Ro-ro-ro-din-båt.mid", "Tre-små-kinesere.mid"];
 
     const select = document.createElement("select");
     const optGroupElement = document.createElement("optgroup");
