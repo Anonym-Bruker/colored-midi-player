@@ -48,6 +48,40 @@
         };
       });
     </script>
-    <img src="fargesystem.jpg" alt="Fargesystem">
+
+    <style>
+      .content {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+      }
+    </style>
+    <br/>
+    <button type="button" class="collapsible">Vise fargekoding</button>
+    <div class="content">
+      <h2>Fargekoder</h2>
+      <img src="fargesystem.jpg" alt="fargesystem">
+      <h2>Fargekart for piano</h2>
+      <img src="piano-overlay.png" alt="fargesystem_overlay">
+    </div>
+
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.maxHeight){
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          }
+        });
+      }
+    </script>
   </body>
 </html>

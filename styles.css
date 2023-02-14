@@ -62,7 +62,7 @@ midi-visualizer .piano-roll-visualizer {
     overflow: auto;
 }
 
-#waterfallVisualizer{
+.waterfall-visualizer {
     background: #ffd;
     border: 2px solid black;
     border-top: none;
@@ -70,6 +70,7 @@ midi-visualizer .piano-roll-visualizer {
     margin: 4px;
     margin-top: 0;
     overflow: auto;
+    height: 500px;
 }
 midi-visualizer svg rect.note{
     stroke: black;

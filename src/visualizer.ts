@@ -169,7 +169,8 @@ export class VisualizerElement extends HTMLElement {
           activeNoteRGB: rgb,
           whiteNoteHeight: 100,
           whiteNoteWidth: 35,
-          pixelsPerTimeStep: 40
+          pixelsPerTimeStep: 60
+
         };
         this._config = this._configWater;
       } else {

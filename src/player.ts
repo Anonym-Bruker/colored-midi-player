@@ -162,8 +162,8 @@ export class PlayerElement extends HTMLElement {
     //this.tempoInput.setAttribute("value", this.ns.tempos[0].qpm.toString());
     this.tempoInput.setAttribute("value", "100");
     this.tempoInput.setAttribute("min", "20");
-    this.tempoInput.setAttribute("max", "240");
-    this.tempoInput.setAttribute("step", "1");
+    this.tempoInput.setAttribute("max", "140");
+    this.tempoInput.setAttribute("step", "4");
     //tempoLabel.innerText = "Tempo: " + this.tempoInput.value + ", and total time: " + this.ns.totalTime;
     this.tempoInput.addEventListener('input',  () => {
       this.player.setTempo(parseInt(this.tempoInput.value, 10));
