@@ -6,7 +6,8 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/html-midi-player)
 
 This is an extension to https://github.com/cifkao/html-midi-player
-This extension is coloring the different pitches and also a semi-working tempo-adjustment.
+-----------------------------
+This extension is to allow coloring the different pitches and also a semi-working tempo-adjustment.
 The color codes used are from Dissimilis explained here:
 http://arkiv.soh.no/index.php?articleid=2698
 
