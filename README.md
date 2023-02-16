@@ -5,6 +5,22 @@
 [![jsDelivr](https://data.jsdelivr.com/v1/package/npm/html-midi-player/badge?style=rounded)](https://www.jsdelivr.com/package/npm/html-midi-player)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/html-midi-player)
 
+This is an extension to https://github.com/cifkao/html-midi-player
+This extension is coloring the different pitches and also a semi-working tempo-adjustment.
+The color codes used are from Dissimilis explained here:
+http://arkiv.soh.no/index.php?articleid=2698
+
+Since this color scheme uses numbers for the black keys, current support is for white keys only.
+
+It also has an printable piano overlay to use as a color guide. (Some cutting required :) )
+
+MIDI files are put in a separate folder "midifiles" and reference to new midi files must currently be added manually into the code.
+
+
+
+Below is a description copied from the html-midi-player on how to set up the system
+-------------
+
 [`<midi-player>`](https://github.com/cifkao/html-midi-player/blob/master/doc/midi-player.md#midi-player)
 and [`<midi-visualizer>`](https://github.com/cifkao/html-midi-player/blob/master/doc/midi-visualizer.md#midi-visualizer)
 HTML elements powered by [@magenta/music](https://github.com/magenta/magenta-js/tree/master/music/) (Magenta.js), fully stylable and scriptable.
