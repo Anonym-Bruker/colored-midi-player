@@ -17,6 +17,7 @@ It also has an printable piano overlay to use as a color guide. (Some cutting re
 
 MIDI files are put in a separate folder "midifiles" and reference to new midi files must currently be added manually into the code.
 
+![Colored-HTML-Midiplayer](https://user-images.githubusercontent.com/46892572/219353189-7ffb6559-a81a-4601-9850-5cf4197f3c13.png)
 
 
 Below is a description copied from the html-midi-player on how to set up the system
