@@ -5,9 +5,10 @@
 [![jsDelivr](https://data.jsdelivr.com/v1/package/npm/html-midi-player/badge?style=rounded)](https://www.jsdelivr.com/package/npm/html-midi-player)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/html-midi-player)
 
+English:
 This is an extension to https://github.com/cifkao/html-midi-player
 -----------------------------
-This extension is to allow coloring the different pitches and also a semi-working tempo-adjustment.
+This extension is to allow coloring the different pitches and also a tempo-adjustment (with some room for improvement).
 The color codes used are from Dissimilis explained here:
 http://arkiv.soh.no/index.php?articleid=2698
 
@@ -17,7 +18,25 @@ It also has an printable piano overlay to use as a color guide. (Some cutting re
 
 MIDI files are put in a separate folder "midifiles" and reference to new midi files must currently be added manually into the code.
 
+See below for picture of the working solution.
+
+Norsk:
+Dette er en utvidelse av https://github.com/cifkao/html-midi-player
+-----------------------------
+Dette utvidelsen er laget for å få farger på ulike toner samt inkluderer en mulighet tempojustering (denne har forbedringsmuligheter).
+Fargekodene er basert på Dissimilis sitt fargeoppsett, forklart her:
+http://arkiv.soh.no/index.php?articleid=2698
+
+Grunnet dette fargetskjemaet bruker tall for svarte tangenter, støttes per nå kun fargekoding av hvite tangenter.
+
+Koden inkluderer også et printbar fargekart som kan legges på pianotangentene. (Noe klipping må påberegnes :) )
+
+MIDI filer puttes per nå i en egen mappe "midifiles". Referanse til nye filer må per nå manuelt legges inn i koden.
+
+Bilde fra løsningen:
 ![Colored-HTML-Midiplayer](https://user-images.githubusercontent.com/46892572/219353189-7ffb6559-a81a-4601-9850-5cf4197f3c13.png)
+
+
 
 
 Below is a description copied from the html-midi-player on how to set up the system
